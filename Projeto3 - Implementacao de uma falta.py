@@ -13,7 +13,6 @@ from scipy.integrate import odeint
 from numpy import linspace 
 from numpy import linalg 
 from numpy import multiply 
-from numpy import arange
 from numpy import cross
 import math
 
@@ -66,7 +65,94 @@ def func(A,t): #A=[x,y,z,vx,vy,vz]
     return [dxdt,dydt,dzdt,dvxdt,dvydt,dvzdt]
 
 
-    
+#Dados para a validacao
+
+td = [
+0.03,
+0.1,
+0.17,
+0.23,
+0.3, 
+0.33,
+0.4,
+0.47,  
+0.53, 
+0.57,
+0.63, 
+0.67,
+0.73, 
+0.8, 
+0.83, 
+0.9, 
+0.93, 
+1.0,  
+1.07,
+1.13, 
+1.2,  
+1.27, 
+1.3,  
+1.37,
+1.43]
+
+xr = [
+-0.11338987,
+2.3404646,
+4.1523185,
+5.91356,
+7.624514,
+8.882342,
+10.24107,
+11.197501,
+12.455438,
+13.712832,
+14.869869,
+15.675331,
+16.882221,
+17.837568,
+19.094963,
+20.804834,
+22.263052,
+24.224142,
+25.732105,
+27.390713,
+29.099825,
+31.009327,
+32.164413,
+33.319717,
+34.675735,
+]
+
+yr = [
+-0.004234587,
+-0.12618159,
+-0.20462011,
+-0.26616883,
+-0.3277297,
+-0.36123002,
+-0.41160792,
+-0.46208298,
+-0.50121725,
+-0.51218164,
+-0.53443825,
+-0.5793158,
+-0.5790244,
+-0.5731597,
+-0.5841241,
+-0.5893452,
+-0.5833591,
+-0.5772516,
+-0.5430835,
+-0.49761102,
+-0.46339434,
+-0.3896913,
+-0.31053638,
+-0.24264942,
+-0.152178,
+]
+
+#for a in td:
+#    yr.append(float("{0:.2f}".format(a)))
+print(len(td),len(xr))
 #Constantes
 p = 0.25
 r = 0.11 #m
@@ -79,13 +165,12 @@ s = 3.3 #Hz
 teta = 0.295765
 v0 = 30.48
 vx = v0 * math.cos(teta)#2.6565
-vy =  0
+vy =  -0.9
 vz = v0 * math.sin(teta)#30.640
 x = 0
 y = 0
 z = 0
 V = [vx,vy,vz]
-
 
 
 #Implementação
@@ -103,10 +188,11 @@ velz = y0[:,5]
 vely = y0[:,4]
 velx = y0[:,3]
 
+
 for i in range(len(Sx)):
     velocidade.append(math.sqrt(y0[:,3][i]**2 + y0[:,4][i]**2 +y0[:,5][i]**2))
     Sy.append(-y0[:,1][i])
-
+print(Sy)
 #print("A altura maxima da bola é {0}.".format(max(Sz)))
 #
 #for i in range(len(Sz)):
@@ -130,7 +216,9 @@ plt.show()
 #======================Gráfico da posicao de y por x==============================================    
 #for i in range(len(Sx)):
 #    print("({0},{1})".format(Sx[i],Sy[i]))
-plt.plot(y0[:,1], y0[:,0],'o',color = 'black')
+
+plt.plot(y0[:,1],y0[:,0],'o',color = 'black')
+plt.plot(yr,xr,'o',color = 'blue',label = 'Bola real')
 plt.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
 plt.title('Visão de cima do campo')
 plt.xlabel('Espaço y[m]')
@@ -140,8 +228,9 @@ plt.grid()
 plt.show()
 
 #======================Gráfico da posicao z por x==============================================
-plt.plot(y0[:,0], y0[:,2],'o',color = 'black',)
-plt.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
+plt.plot(y0[:,0], y0[:,2],'o',color = 'black',label = 'Bola implementação')
+#plt.plot(xr,zr,'o',color = 'blue',label = 'Bola real')
+plt.legend(loc='upper right', bbox_to_anchor=(1.5, 1))
 plt.title('Visão do banco de reservas')
 plt.xlabel('Espaço x[m]')
 plt.ylabel('Espaço z[m]')
@@ -177,6 +266,7 @@ plt.show()
 
 #======================Gráfico da posicao de y pelo tempo==============================================
 plt.plot(T,y0[:,1],'-',label = 'Posição em y')
+plt.plot(td,yr,'o',color = 'blue',label = 'Posição y da bola real')
 plt.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
 plt.title('Gráfcos das posições em y')
 plt.xlabel('Tempo[s]')
@@ -188,6 +278,7 @@ plt.show()
 
 #======================Gráfico da posicao de x e z pelo tempo==============================================
 plt.plot(T,y0[:,0],'-',label = 'Posição em x')
+plt.plot(td,xr,'o',color = 'blue',label = 'Posição x da bola real')
 plt.plot(T,y0[:,2],'-',label = 'Posição em z')
 plt.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
 plt.title('Gráfcos das posições em x e z')
