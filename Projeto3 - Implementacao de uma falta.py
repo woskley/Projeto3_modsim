@@ -152,7 +152,7 @@ yr = [
 
 #for a in td:
 #    yr.append(float("{0:.2f}".format(a)))
-print(len(td),len(xr))
+#print(len(td),len(xr))
 #Constantes
 p = 0.25
 r = 0.11 #m
@@ -191,8 +191,8 @@ velx = y0[:,3]
 
 for i in range(len(Sx)):
     velocidade.append(math.sqrt(y0[:,3][i]**2 + y0[:,4][i]**2 +y0[:,5][i]**2))
-    Sy.append(-y0[:,1][i])
-print(Sy)
+    Sy.append(- y0[:,1][i])
+#print(Sy)
 #print("A altura maxima da bola é {0}.".format(max(Sz)))
 #
 #for i in range(len(Sz)):
@@ -244,19 +244,7 @@ mpl.rcParams['legend.fontsize'] = 10
 
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-ax.plot(Sx, Sy, Sz, label='Movimento da bola',marker = 'o',color = 'black')
-ax.set_xlabel('Posição em x')
-ax.set_ylabel('Posição em y')
-ax.set_zlabel('Posicção em z')
-ax.legend()
-
-plt.show()
-
-mpl.rcParams['legend.fontsize'] = 10
-
-fig = plt.figure()
-ax = fig.gca(projection='3d')
-ax.plot(y0[:,0], y0[:,1], Sz, label='Movimento da bola',marker = 'o',color = 'black')
+ax.plot(y0[:,0], y0[:,1], y0[:,2], label='Movimento da bola',marker = 'o',color = 'black')
 ax.set_xlabel('Posição em x')
 ax.set_ylabel('Posição em y')
 ax.set_zlabel('Posicção em z')
@@ -265,7 +253,7 @@ ax.legend()
 plt.show()
 
 #======================Gráfico da posicao de y pelo tempo==============================================
-plt.plot(T,y0[:,1],'-',label = 'Posição em y')
+plt.plot(T,y0[:,1],'-',label = 'Posição em y',c='y')
 plt.plot(td,yr,'o',color = 'blue',label = 'Posição y da bola real')
 plt.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
 plt.title('Gráfcos das posições em y')
@@ -276,12 +264,22 @@ plt.grid()
 plt.show()
 
 
-#======================Gráfico da posicao de x e z pelo tempo==============================================
-plt.plot(T,y0[:,0],'-',label = 'Posição em x')
+#======================Gráfico da posicao de x  pelo tempo==============================================
+plt.plot(T,y0[:,0],'-',label = 'Posição em x',c='red')
 plt.plot(td,xr,'o',color = 'blue',label = 'Posição x da bola real')
-plt.plot(T,y0[:,2],'-',label = 'Posição em z')
 plt.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
-plt.title('Gráfcos das posições em x e z')
+plt.title('Gráfcos das posições em x')
+plt.xlabel('Tempo[s]')
+plt.ylabel('Espaço[m]')
+
+plt.grid()
+plt.show()
+
+#======================Gráfico da posicao de z  pelo tempo==============================================
+plt.plot(T,y0[:,3],'-',label = 'Posição em z',c='green')
+#plt.plot(td,zr,'o',color = 'blue',label = 'Posição z da bola real')
+plt.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
+plt.title('Gráfcos das posições em z')
 plt.xlabel('Tempo[s]')
 plt.ylabel('Espaço[m]')
 
@@ -290,9 +288,9 @@ plt.show()
 
 
 #======================Gráfico da posicao de v, vx e vz pelo tempo==============================================
-plt.plot(T,velocidade,'-',label = 'Velocidade')
-plt.plot(T,y0[:,3],'-',label = 'Velocidade em x')
-plt.plot(T,y0[:,5],'-',label = 'Velocidade em z')
+plt.plot(T,velocidade,'-',label = 'Velocidade',c='black')
+plt.plot(T,y0[:,3],'-',label = 'Velocidade em x',c='r')
+plt.plot(T,y0[:,5],'-',label = 'Velocidade em z',c='green')
 plt.legend(loc='upper right', bbox_to_anchor=(1.5, 1))
 plt.title('Gráfcos das velocidades em x e z')
 plt.xlabel('Tempo[s]')
@@ -304,7 +302,7 @@ plt.show()
 
 #======================Gráfico da posicao de v e vy pelo tempo==============================================
 #plt.plot(T,velocidade,'-',label = 'Velocidade')
-plt.plot(T,y0[:,4],'-',label = 'Velocidade em y')
+plt.plot(T,y0[:,4],'-',label = 'Velocidade em y',c='y')
 plt.legend(loc='upper right', bbox_to_anchor=(1.5, 1))
 plt.title('Gráfcos das velocidades em x e z')
 plt.xlabel('Tempo[s]')
