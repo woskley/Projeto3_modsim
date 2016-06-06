@@ -317,16 +317,22 @@ plt.show()
 
 
 #======================Figura de mérito==============================================
+def rad_gra(teta):
+    ang = 180 * teta / math.pi
+    return ang
 
 merito = []
 merito.append(max(Sz))
 merito2 = []
 merito2.append(max(Sx))
 tetas = []
-tetas.append(teta)
+ang = rad_gra(teta)
+tetas.append(ang)
 for i in range(1,10):
     teta-=math.pi/180
-    tetas.append(teta)
+    ang = rad_gra(teta)
+    print(ang)
+    tetas.append(ang)
 
     #Inicio
     v0 = 30.48
@@ -370,7 +376,7 @@ for i in range(1,10):
 plt.plot(tetas,merito,'o',label = '',c = 'r')
 plt.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
 plt.title('Gráfcos da altura máxima da bola')
-plt.xlabel('Tetas[rad]')
+plt.xlabel('ß [graus]')
 plt.ylabel('Espaço[m]')
 
 plt.grid()
@@ -379,7 +385,7 @@ plt.show()
 plt.plot(tetas,merito2,'o',label = '',c = 'g')
 plt.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
 plt.title('Gráfcos da distância máxima da bola')
-plt.xlabel('Tetas[rad]')
+plt.xlabel('ß [graus]')
 plt.ylabel('Espaço[m]')
 
 plt.grid()
