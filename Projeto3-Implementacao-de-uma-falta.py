@@ -166,6 +166,7 @@ s = 11 #Hz
 
 #Valores iniciais
 teta = gra_rad(16.5)
+#teta = 0.295765
 v0 = 30.48
 vx = 2.4
 vy = v0 * math.cos(teta)#2.6565
@@ -332,29 +333,32 @@ merito.append(max(Sz))
 merito2 = []
 merito2.append(max(Sx))
 tetas = []
+#teta = gra_rad(16.5)
 ang = rad_gra(teta)
 tetas.append(ang)
+#tetas.append(teta)
 for i in range(1,10):
-    teta-=math.pi/180
-    ang = rad_gra(teta)
-    tetas.append(ang)
-
-    #Inicio
+    print(teta)
+    teta -= math.pi/180
+    
     v0 = 30.48
-    vx = 0.9
+    vx = 2.4
     vy = v0 * math.cos(teta)#2.6565
     vz = v0 * math.sin(teta)#30.640
     x = 0
     y = 0
     z = 0
     V = [vx,vy,vz]
-    Y = [x,y,z,vx,vy,vz]
-
-
+    ang = rad_gra(teta)
+    tetas.append(ang)
     
-    y =  odeint(func,Y,T)
+    #Implementação
+    Y0 = [x,y,z,vx,vy,vz]
+    T = linspace(0,1.3,16)
+    y = odeint(func,Y0,T)
     
-    #Listas
+    
+    #Listas dos Espaços e Velocidade
     velocidade = []
     Sz = y[:,2]
     Sy = y[:,1]
@@ -362,14 +366,15 @@ for i in range(1,10):
     velz = y[:,5]
     vely = y[:,4]
     velx = y[:,3]
+    
     for i in range(len(Sx)):
         velocidade.append(math.sqrt(y[:,3][i]**2 + y[:,4][i]**2 +y[:,5][i]**2))
     merito.append(max(Sz))
     merito2.append(max(Sy))
 
-for i in range(len(merito)):
-    if merito[i] >= 1.8:
-        print(tetas[i])
+#for i in range(len(merito)):
+#    if merito[i] >= 1.8:
+#        print(tetas[i])
         
 
 plt.plot(tetas,merito,'o',label = '',c = 'r')
@@ -386,6 +391,7 @@ plt.legend(loc='upper right', bbox_to_anchor=(1.13, 1.1))
 plt.title('Gráficos da distância máxima da bola')
 plt.xlabel('ß [º]')
 plt.ylabel('Espaço[m]')
+plt.axis([0,25,22,23])
 
 plt.grid()
 plt.show()
