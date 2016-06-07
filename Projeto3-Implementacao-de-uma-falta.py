@@ -211,6 +211,7 @@ plt.legend(loc='upper right', bbox_to_anchor=(1.13, 1.1))
 plt.title('Visão do Roberto Carlos')
 plt.xlabel('Espaço y[m]')
 plt.ylabel('Espaço z[m]')
+plt.axis([0,0.7,0,2])
 
 
 plt.grid()
@@ -286,7 +287,7 @@ plt.plot(T,y0[:,2],'-',label = 'Posição em z',c='green')
 #plt.plot(td,zr,'o',color = 'blue',label = 'Posição z da bola real')
 plt.legend(loc='upper right', bbox_to_anchor=(1.13, 1.1))
 plt.title('Gráficos das posições em z')
-#plt.axis([0,1.4,0,2.5])
+plt.axis([0,1.4,0,2])
 plt.xlabel('Tempo[s]')
 plt.ylabel('Espaço[m]')
 
