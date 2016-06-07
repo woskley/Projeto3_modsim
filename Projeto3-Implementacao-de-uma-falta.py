@@ -165,10 +165,10 @@ m = 430 * 10 ** -3 #kg 430
 s = 11 #Hz
 
 #Valores iniciais
-teta = gra_rad(16.5)
+teta = gra_rad(15)
 #teta = 0.295765
-v0 = 30.48
-vx = 2.4
+v0 = 30#30.48
+vx = 2.1
 vy = v0 * math.cos(teta)#2.6565
 vz = v0 * math.sin(teta)#30.640
 x = 0
@@ -179,7 +179,7 @@ V = [vx,vy,vz]
 
 #Implementação
 Y0 = [x,y,z,vx,vy,vz]
-T = linspace(0,1.3,16)
+T = linspace(0,1.4,16)
 y0 = odeint(func,Y0,T)
 
 
@@ -294,12 +294,32 @@ plt.grid()
 plt.show()
 
 
-#======================Gráfico da posicao de v, vx e vz pelo tempo==============================================
+#======================Gráfico da posicao de v pelo tempo==============================================
 plt.plot(T,velocidade,'-',label = 'Velocidade',c='black')
+plt.legend(loc='upper right', bbox_to_anchor=(1.13, 1.1))
+plt.title('Gráficos das velocidades')
+plt.xlabel('Tempo[s]')
+plt.ylabel('Velocidade[m/s]')
+
+
+plt.grid()
+plt.show()
+
+#======================Gráfico da posicao de vx pelo tempo==============================================
 plt.plot(T,y0[:,3],'-',label = 'Velocidade em x',c='r')
+plt.legend(loc='upper right', bbox_to_anchor=(1.13, 1.1))
+plt.title('Gráficos das velocidades em x')
+plt.xlabel('Tempo[s]')
+plt.ylabel('Velocidade[m/s]')
+
+
+plt.grid()
+plt.show()
+
+#======================Gráfico da posicao de vz pelo tempo==============================================
 plt.plot(T,y0[:,5],'-',label = 'Velocidade em z',c='green')
 plt.legend(loc='upper right', bbox_to_anchor=(1.13, 1.1))
-plt.title('Gráficos das velocidades em x e z')
+plt.title('Gráficos das velocidades em z')
 plt.xlabel('Tempo[s]')
 plt.ylabel('Velocidade[m/s]')
 
@@ -339,10 +359,10 @@ tetas.append(ang)
 #tetas.append(teta)
 for i in range(1,10):
     print(teta)
-    teta -= math.pi/180
+    teta -= math.pi * 0.5/180
     
-    v0 = 30.48
-    vx = 2.4
+    v0 = 31.48
+    vx = 2.7
     vy = v0 * math.cos(teta)#2.6565
     vz = v0 * math.sin(teta)#30.640
     x = 0
@@ -350,6 +370,7 @@ for i in range(1,10):
     z = 0
     V = [vx,vy,vz]
     ang = rad_gra(teta)
+    print(ang)
     tetas.append(ang)
     
     #Implementação
